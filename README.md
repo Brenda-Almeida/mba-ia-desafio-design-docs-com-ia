@@ -43,17 +43,116 @@ A sequência da RFC em diante é sustentada pelos registros de sessão. O histó
 Resumo fiel do prompt enviado ao Codex CLI para transformar a transcrição e as decisões registradas em uma proposta para revisão arquitetural.
 
 ```text
-Atue como Staff Software Engineer / Software Architect Sênior.
-Antes de escrever, explore o repositório e analise a transcrição da reunião,
-os ADRs e os relatórios técnicos existentes. Use apenas as informações
-disponíveis no repositório.
+Atue como um Staff Software Engineer / Software Architect Sênior, especialista em:- Arquitetura de software e sistemas distribuídos.- Documentação técnica e processos de RFC (Request for Comments).
 
-Produza docs/RFC.md em Markdown, em aproximadamente 2 a 4 páginas.
-Represente fielmente a reunião, consolide as decisões dos ADRs e incorpore
-o contexto técnico relevante. Apresente a solução em nível arquitetural,
-as alternativas descartadas com justificativas e as questões em aberto.
-Use links relativos válidos para os ADRs relacionados e prepare a proposta
-para revisão pela equipe.
+- Architecture Decision Records (ADRs).
+- Design de sistemas assíncronos e orientados a eventos.
+- Comunicação técnica e revisão de propostas arquiteturais.
+
+Sua responsabilidade é elaborar uma RFC profissional, concisa, tecnicamente fundamentada e pronta para revisão pela equipe de engenharia, utilizando exclusivamente as informações disponíveis no repositório.
+
+A RFC não é um documento de implementação. Seu objetivo é comunicar a proposta arquitetural, apresentar as decisões e seus trade-offs, registrar alternativas descartadas e explicitar questões ainda não resolvidas.
+
+———
+
+## 1. Objetivo
+
+Produzir o documento docs/RFC.md, em Markdown, consolidando a proposta técnica da feature discutida na reunião registrada em TRANSCRICAO.md.
+
+O documento deve:
+
+1. Representar fielmente as discussões da reunião.
+2. Consolidar as decisões arquiteturais documentadas nos ADRs.
+3. Incorporar o contexto técnico relevante dos relatórios existentes.
+4. Apresentar a solução proposta em nível arquitetural.
+5. Documentar alternativas descartadas e suas justificativas.
+6. Registrar questões em aberto para discussão assíncrona.
+7. Referenciar os ADRs relacionados por links relativos válidos.
+8. Estar pronto para ser submetido à revisão da equipe.
+
+Resultado esperado: uma RFC de aproximadamente 2 a 4 páginas, com linguagem técnica, objetiva e profissional.
+
+———
+
+## 2. Fontes de informação
+
+Antes de escrever qualquer conteúdo, explore o repositório e analise as seguintes fontes.
+
+### 2.1. Fonte primária — Transcrição da reunião
+
+Localize e leia integralmente o arquivo TRANSCRICAO.md.
+
+Extraia e classifique:
+
+- Problema de negócio ou técnico apresentado.
+- Objetivos e necessidades da feature.
+- Requisitos funcionais e não funcionais mencionados.
+- Decisões efetivamente tomadas.
+- Propostas arquiteturais discutidas.
+- Alternativas consideradas e descartadas.
+- Motivos e trade-offs dos descartes.
+- Riscos e preocupações levantados.
+- Dúvidas não respondidas.
+- Questões adiadas para discussão futura.
+- Participantes identificáveis da reunião.
+
+Regra crítica: diferencie explicitamente uma decisão confirmada, uma sugestão, uma hipótese e uma questão ainda não resolvida.
+
+Não transforme sugestões ou hipóteses em decisões definitivas.
+
+### 2.2. Fonte de decisões — ADRs
+
+Leia todos os arquivos de docs/adrs/.
+
+Identifique:
+
+- Decisões arquiteturais formalizadas.
+- Contexto e motivação de cada decisão.
+- Alternativas avaliadas.
+- Consequências positivas e negativas.
+- Trade-offs assumidos.
+- Relações e dependências entre decisões.
+
+Considere especialmente, quando documentados:
+
+- Transactional Outbox no MySQL.
+- Retry com backoff e DLQ.
+- Assinatura HMAC-SHA256 com secret por endpoint.
+- Entrega at-least-once com X-Event-Id.
+- Worker em processo separado com polling.
+- Reutilização de padrões existentes no projeto.
+
+Não assuma que todas essas decisões estão aprovadas ou presentes. Confirme o conteúdo e o status real dos ADRs.
+
+### 2.3. Fonte complementar — Relatórios técnicos
+
+Explore a pasta reports/ e identifique os relatórios relevantes para a feature.
+
+Utilize essas informações para compreender:
+
+- Arquitetura atual do sistema.
+- Componentes e tecnologias existentes.
+- Restrições técnicas.
+- Integrações e dependências.
+- Padrões arquiteturais já adotados.
+- Riscos e limitações identificados.
+- Viabilidade técnica das decisões propostas.
+
+Não reproduza integralmente os relatórios.
+
+Extraia apenas informações necessárias para fundamentar a RFC.
+
+### 2.4. RFC existente
+
+Verifique se existe um arquivo rfc.md ou RFC.md na raiz do projeto, bem como docs/RFC.md.
+
+Caso exista conteúdo anterior:
+
+- Leia antes de escrever.
+- Preserve informações válidas e relevantes.
+- Reorganize o conteúdo para atender ao formato solicitado.
+- Elimine redundâncias e informações desatualizadas.
+- Não descarte informações relevantes sem justificativa.
 ```
 
 **Resultado.** A RFC foi produzida com arquitetura, alternativas, questões abertas e links para os ADRs. A auditoria seguinte apontou ajustes de estrutura, metadados e nível de detalhe. [RFC](docs/RFC.md)
@@ -63,15 +162,23 @@ para revisão pela equipe.
 Resumo fiel do prompt enviado ao Codex CLI para conferir a RFC contra as fontes e os critérios de aceite.
 
 ```text
-Atue como engenheiro de software sênior especializado em arquitetura e
-revisão técnica. Audite docs/RFC.md usando TRANSCRICAO.md, os ADRs e os
-relatórios técnicos. Valide o conteúdo de cada seção.
-
-Confira autor, status, data, revisores, TL;DR, contexto, proposta, impacto,
-riscos e links para os ADRs. Confirme na transcrição pelo menos duas
-alternativas realmente descartadas, com seus trade-offs, e dois pontos
-adiados ou em aberto. Verifique a consistência com os ADRs, o nível
-arquitetural da proposta e a extensão equivalente a 2 a 4 páginas.
+Atue como um Engenheiro de Software Sênior especializado em Arquitetura de Software e revisão de documentação técnica.
+Analise o arquivo docs/RFC.md e verifique se ele atende integralmente aos requisitos abaixo. Utilize TRANSCRICAO.md, os ADRs em docs/adrs/ e os relatórios em reports/ como fontes de validação.
+## 1. Requisitos obrigatórios:
+A RFC deve operar em nível arquitetural, apresentando a abordagem escolhida, as alternativas discutidas e as questões deixadas em aberto. Deve ser um documento conciso, equivalente a 2–4 páginas, sem antecipar detalhes de implementação que pertencem ao FDD.
+Verifique se contém todas as seções obrigatórias:
+- Metadados: autor, status, data e revisores (participantes da reunião).
+- Resumo executivo (TL;DR): síntese da proposta.
+- Contexto e problema: contextualização e motivação da solução.
+- Proposta técnica: visão geral da arquitetura, sem detalhamento de implementação.
+- Alternativas consideradas: pelo menos duas alternativas reais discutidas e descartadas na reunião, cada uma com o trade-off que motivou o descarte.
+- Questões em aberto: pelo menos dois pontos levantados na reunião que permaneceram sem decisão ou foram adiados.
+- Impacto e riscos: consequências e riscos relevantes da proposta.- Decisões relacionadas: links válidos para os ADRs correspondentes.
+## 2. Critérios de avaliação
+- Valide o conteúdo das seções, não apenas a existência dos títulos.
+- Confirme na transcrição se as alternativas foram realmente descartadas e se as questões permaneceram em aberto.
+- Verifique se os revisores correspondem aos participantes da reunião.
+- Verifique a consistência da proposta com os ADRs e os relatórios existentes.
 ```
 
 **Resultado.** Na versão auditada, quatro dos oito itens passaram, três falharam e a extensão ficou sem comprovação. O usuário pediu as correções e a separação entre pendências da reunião e lacunas da análise. [RFC](docs/RFC.md)
