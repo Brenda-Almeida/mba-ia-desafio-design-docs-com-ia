@@ -219,13 +219,4 @@ O pacote reúne PRD, RFC, FDD, sete ADRs, Tracker e relatórios técnicos. Os pr
 
 A cobertura do Tracker permanece abaixo do critério do desafio. A análise foi documental e estática. Seguem pendentes a revisão da proposta pela equipe, a validação de segurança e a comprovação em execução dos contratos, da resiliência e da meta de latência.
 
-## Checklist de conformidade do README
 
-| Requisito | Status | Evidência |
-| --- | --- | --- |
-| Contém todas as seções obrigatórias do requisito 6 | PASSOU | Seis seções conferidas contra `git show e7f6311:README.md`. |
-| Lista pelo menos uma ferramenta de IA efetivamente utilizada | PASSOU | Codex CLI identificado nos registros locais das sessões de produção. |
-| Apresenta pelo menos dois prompts customizados em blocos de código | PASSOU | Dois resumos fiéis dos prompts de elaboração e auditoria da RFC. |
-| Descreve pelo menos duas iterações ou ajustes concretos | PASSOU | Três ciclos com problemas detectados, alterações realizadas e resultados registrados. |
-
-**Veredito do README: APROVADO.** O Tracker permanece abaixo do critério de cobertura do pacote.
