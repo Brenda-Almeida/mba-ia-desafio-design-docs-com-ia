@@ -605,24 +605,3 @@ Avaliação qualitativa de desenho, não frequência medida.
 | Concorrência preexistente de estoque/exclusão | Pedidos | Trabalho próprio; Outbox não resolve automaticamente. |
 | Planejamento | Marcos/Larissa | Três sprints/fim de novembro são previsão verbal, não compromisso validado. |
 
-### 16.3. Auditoria de aceitação documental
-
-A menção do checklist a “seções do requisito 3” foi interpretada como as 16 seções da estrutura obrigatória do item 5 do pedido; item 3 define fontes. Auditoria documental, não aprovação arquitetural ou teste de funcionamento.
-
-| Requisito | Status | Evidência |
-|---|---|---|
-| Arquivo `docs/FDD.md` existe e está em Markdown | PASSOU | Este arquivo, headings/tabelas/blocos cercados. |
-| Contém todas as seções obrigatórias do requisito 3 | PASSOU | Seções 1–16 correspondem a 5.1–5.16; fontes 1.1/16.1. |
-| Contratos públicos incluem pelo menos 4 endpoints HTTP | PASSOU | Sete operações em 6.2–6.8. |
-| Pelo menos quatro endpoints com exemplos de payload de request e response e status codes | PASSOU | Cadastro (201, ` 6.2), edição (200, ` 6.4), rotação (200, ` 6.6) e replay (202, ` 6.8) documentam ambos os corpos JSON e os status de sucesso e erro. |
-| Matriz de erros utiliza códigos com prefixo `WEBHOOK_` | PASSOU | 26 linhas na seção 7; códigos globais distinguidos. |
-| Integração com o sistema existente referencia pelo menos 4 caminhos reais do código-fonte | PASSOU | 18 arquivos existentes distintos na matriz 12, conferidos diretamente. |
-| Cada referência descreve concretamente sua integração | PASSOU | Responsabilidade/símbolos, integração e tipo em 12. |
-| Observabilidade contempla métricas | PASSOU | Tipo, propósito, dimensões e limites de coleta em 10.1. |
-| Observabilidade contempla logs | PASSOU | Eventos, níveis, campos/correlação e exclusões em 10.2. |
-| Observabilidade contempla tracing | PASSOU | Origem/tx/worker/HTTP/retry/replay e trilha lógica em 10.3. |
-| Fluxos de Outbox, Worker, Retry e DLQ estão detalhados | PASSOU | 4.3 e 5.1–5.4, diagramas/tabela de tentativas. |
-| Documento consistente com a RFC e os ADRs | PASSOU | Status e ambiguidades preservados em 1.1/16.2; sem alegar implantação/aprovação. |
-| Documento suficientemente acionável para implementação | PASSOU | Componentes/modelo/constraints/claims/contratos/testes/ACs, propostas não aprovadas identificadas. |
-
-**Veredito de conformidade documental: APROVADO.** 16 seções principais, sete endpoints administrativos, um contrato outbound separado, 26 códigos de erro e 18 arquivos reais na matriz de integração. Não equivale a autorização de deploy: pendências e bloqueios de segurança permanecem. Testes de feature/desempenho não verificados, pois não houve implementação.
