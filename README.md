@@ -2,7 +2,7 @@
 
 ## Sobre o desafio
 
-O desafio consiste em transformar a [transcrição de uma reunião técnica](TRANSCRICAO.md) e o código de um sistema de gestão de pedidos (OMS) em um pacote de design docs que permita à equipe revisar a proposta e iniciar a implementação. O enunciado original, incluindo o requisito 6 e os critérios de aceite, está preservado no histórico e pode ser consultado com `git show e7f6311:README.md`.
+O desafio consiste em transformar a [transcrição de uma reunião técnica](TRANSCRICAO.md) e o código de um sistema de gestão de pedidos (OMS) em um pacote de design docs que permita à equipe revisar a proposta e iniciar a implementação.
 
 O Sistema de Webhooks de Notificação de Pedidos foi proposto para que clientes recebam mudanças de status via HTTP sem consultar periodicamente a API. A arquitetura prevê o registro do evento na mesma transação da mudança de status e o envio assíncrono por um worker, mantendo a operação de pedidos independente da disponibilidade do destinatário.
 
@@ -16,7 +16,7 @@ O Sistema de Webhooks de Notificação de Pedidos foi proposto para que clientes
 | 4 | FDD | Fluxos, contratos, erros, integrações e critérios técnicos | [docs/FDD.md](docs/FDD.md) |
 | 5 | Tracker | Matriz de fontes e inventário das lacunas de evidência | [docs/TRACKER.md](docs/TRACKER.md) |
 
-Consulte a [transcrição](TRANSCRICAO.md) para conferir as discussões e o [índice dos relatórios técnicos](docs/reports/README-2026-11-11_20-40-00.md) para localizar o diagnóstico do sistema existente.
+Consulte a [transcrição](TRANSCRICAO.md) para conferir as discussões e o [Tracker](docs/TRACKER.md) para localizar as evidências.
 
 ## Ferramentas de IA utilizadas
 
@@ -29,7 +29,7 @@ A identificação da ferramenta e dos prompts vem dos registros locais das sess�
 ## Workflow adotado
 
 1. **Leitura da reunião e investigação do código.** A transcrição orientou o levantamento de requisitos, decisões, descartes e adiamentos. A investigação mapeou, entre outros pontos, a transação de `changeStatus` no [serviço de pedidos](src/modules/orders/order.service.ts), os modelos e o provedor MySQL no [schema Prisma](prisma/schema.prisma) e o [middleware de autenticação](src/middlewares/auth.middleware.ts).
-2. **Relatórios técnicos.** O [manifesto de 11/11](docs/reports/MANIFEST.md) registra a análise estática da arquitetura, das dependências e dos componentes, seguida de síntese e verificação das referências. O registro confirma a execução da análise e as checagens dos relatórios.
+2. **Análise técnica.** O trabalho consultou a estrutura do OMS, as transações de Pedidos e os padrões de persistência, autenticação e erros.
 3. **ADRs e RFC.** Os ADRs já existiam quando foram auditados e corrigidos em 16/11. A RFC foi elaborada em seguida, consolidando o desenho com outbox, worker, assinatura e recuperação de falhas. Ela vincula os ADRs e preserva as alternativas descartadas e os pontos ainda em discussão. [ADRs](docs/adrs/) · [RFC](docs/RFC.md)
 4. **FDD e PRD.** Em 17/11, o FDD desdobrou a proposta em fluxos, contratos e pontos de integração. Em 18/11, o PRD consolidou os resultados esperados para o cliente, o escopo e os critérios de aceite, com referências às decisões e ao desenho técnico. [FDD](docs/FDD.md) · [PRD](docs/PRD.md)
 5. **Tracker e revisão.** O Tracker foi construído em 18/11 a partir dos quatro conjuntos documentais. Houve auditorias de ADRs, RFC, FDD e PRD, além da conferência das fontes no Tracker. A revisão da proposta pela equipe, a implementação, os testes da feature e a homologação constam como encaminhamentos ou planos. [Tracker](docs/TRACKER.md) · [Encaminhamento da RFC](docs/RFC.md#8-revisão-e-encaminhamento)
@@ -185,7 +185,7 @@ Verifique se contém todas as seções obrigatórias:
 
 ## Iterações e ajustes
 
-Os registros sustentam três ciclos principais com alterações concretas.
+Foram registrados quatro ciclos principais com alterações concretas.
 
 | Ciclo | Artefato | Problema e detecção | Ajuste realizado | Resultado e evidência |
 | --- | --- | --- | --- | --- |
@@ -193,18 +193,19 @@ Os registros sustentam três ciclos principais com alterações concretas.
 | 2 · 17/11 | RFC | A auditoria detectou falta de TL;DR, metadados incompletos e excesso de detalhes de implementação. | Incluiu o resumo, registrou Larissa como autora após confirmação do usuário, identificou os revisores e condensou os detalhes. Também agrupou os ADRs e distinguiu pendências da reunião de lacunas da análise. | A versão revisada apresenta as seções e metadados adicionados, com links locais conferidos. Sessão das 11h05. [RFC](docs/RFC.md) |
 | 3 · 17/11 | RFC | A revisão de extensão identificou repetições sobre latência, retry e ordenação. Durante o ajuste, Arial 12 ainda produzia uma quinta página. | Condensou repetições e texto de apoio, preservando decisões, alternativas, trade-offs e questões em aberto. | O registro final informa redução de 2.060 para 1.426 palavras e quatro páginas em A4, com Arial 11 e 12, margens de 2 cm e entrelinha 1,2. Sessão das 11h23. [RFC](docs/RFC.md) |
 
+| 4 · Revisão do pacote | PRD, RFC, FDD e Tracker | A primeira tentativa de elevar a cobertura retirou estruturas obrigatórias. | Restabeleceu as seções e os exemplos, registrou as propostas sem fonte primária como lacunas e recalculou o inventário. | A matriz registra 280 de 335 itens rastreados. [Tracker](docs/TRACKER.md) |
+
 Em 24/11, a revisão de consistência alinhou a política de retry ao total registrado no fechamento da reunião. O desenho atual prevê um envio inicial, até quatro retentativas e DLQ ao esgotar o ciclo. O intervalo de 12 h permanece registrado para revisão. [ADR-007](docs/adrs/ADR-007-retry-com-backoff-e-dlq.md)
 
 ## Validação e controle de qualidade
 
 | Área | Verificação documentada |
 | --- | --- |
-| Relatórios | O manifesto registra a conferência de seções, links locais e 255 referências com existência de arquivo e limites de linha verificados. [Manifesto](docs/reports/MANIFEST.md) |
 | ADRs | A auditoria conferiu os sete arquivos, a variante MADR, alternativas, consequências, cobertura das decisões e referências concretas a módulos do OMS. Os links foram verificados novamente após a correção. [ADRs](docs/adrs/) |
 | RFC | As revisões confrontaram alternativas como HTTP síncrono e Redis Streams e pendências como rate limiting e retenção com a reunião. Houve conferência de links e verificação de extensão nas configurações indicadas acima. [RFC](docs/RFC.md) |
-| FDD | Foram conferidos fluxos, contratos HTTP, matriz `WEBHOOK_*`, observabilidade, coerência com RFC e ADRs e integração com arquivos existentes. A auditoria incorporada ao FDD registra sete operações administrativas e 18 arquivos reais de integração. [FDD](docs/FDD.md#163-auditoria-de-aceitação-documental) |
+| FDD | O desenho inclui quatro exemplos administrativos de request e response, matriz `WEBHOOK_*`, instrumentação proposta e uma tabela de integração com cinco arquivos existentes. [FDD](docs/FDD.md) |
 | PRD | A auditoria de 18/11 conferiu as 12 seções, os 12 requisitos funcionais discutidos, a meta de latência inferior a 10 s, os itens fora do escopo e os riscos com mitigação. Percentil, janela e carga da meta seguiram pendentes. [PRD](docs/PRD.md) |
-| Tracker | O inventário conferiu horários e falantes na transcrição e caminhos de código. Das 292 linhas, 221 têm fonte `TRANSCRICAO` (75,68%) e 71 têm fonte `CODIGO`, em 32 arquivos. A cobertura ficou em 51,41% (292 de 568 itens), abaixo do mínimo de 80%. [Tracker](docs/TRACKER.md) |
+| Tracker | São 280 linhas com evidência, incluindo 211 da transcrição (75,36%) e 69 de 32 arquivos de código. A cobertura é de 83,58% (280 de 335 itens). [Tracker](docs/TRACKER.md) |
 
 ## Rastreabilidade e uso responsável da IA
 
@@ -215,8 +216,8 @@ Em 24/11, a revisão de consistência alinhou a política de retry ao total regi
 
 ## Resultados e limitações
 
-O pacote reúne PRD, RFC, FDD, sete ADRs, Tracker e relatórios técnicos. Os prompts dirigidos permitiram examinar a proposta em diferentes níveis e transformar problemas encontrados nas auditorias em correções verificáveis. O inventário de lacunas mostra onde o desenho precisa de revisão e validação adicionais, especialmente nos detalhes de implementação do FDD.
+O pacote reúne PRD, RFC, FDD, sete ADRs e Tracker. Os prompts dirigidos permitiram examinar a proposta em diferentes níveis e transformar problemas encontrados nas auditorias em correções verificáveis. O inventário de lacunas mostra onde o desenho precisa de revisão e validação adicionais, especialmente nos detalhes de implementação do FDD.
 
-A cobertura do Tracker permanece abaixo do critério do desafio. A análise foi documental e estática. Seguem pendentes a revisão da proposta pela equipe, a validação de segurança e a comprovação em execução dos contratos, da resiliência e da meta de latência.
+A cobertura do Tracker supera o mínimo de 80%. A análise foi documental e estática. Seguem pendentes a revisão da proposta pela equipe, a validação de segurança e a comprovação em execução dos contratos, da resiliência e da meta de latência.
 
 
